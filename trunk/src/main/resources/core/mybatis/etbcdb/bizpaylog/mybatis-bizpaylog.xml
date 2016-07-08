@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.prj.biz.dao.etbcdb.bizpaylog.BizPaylogDao">
+
+    <resultMap id="bizpaylogResult" type="com.prj.biz.bean.etbc.BizPaylog">
+		<result property="id" column="id" />
+		<result property="createdate" column="createDate" />
+		<result property="lastupdatedate" column="lastUpdateDate" />
+		<result property="ownership" column="ownership" />
+		<result property="version" column="version" />
+		<result property="biids" column="biids" />
+		<result property="payamount" column="payAmount" />
+		<result property="payrecordid" column="payRecordId" />
+		<result property="payresult" column="payResult" />
+		<result property="transactionid" column="transactionId" />
+		<result property="userno" column="userNo" />
+		<result property="channeluserId" column="channelUser_id" />
+		<result property="paystatusId" column="payStatus_id" />
+		<result property="serviceaccountId" column="serviceAccount_id" />
+		<result property="serviceAccountName" column="serviceAccountName" />
+		<result property="orgno" column="orgNo" />
+		<result property="transactiontype" column="transactionType" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+	    t.id, t.createDate, t.lastUpdateDate, t.ownership, t.version, 
+	    t.biids, t.payAmount, t.payRecordId, t.payResult, t.transactionId, 
+	    t.userNo, t.channelUser_id, t.payStatus_id, t.serviceAccount_id, 
+	    t.orgNo, t.transactionType, a.name serviceAccountName 
+		
+	</sql>
+		
+	<sql id="query_where">
+	    <where>
+	        <if test="id!=null and id!='' "> 
+	           t.ID = #{id} 
+	       </if>
+		    <if test="createdate!=null and createdate!='' ">
+		        AND t.createDate = #{createdate}
+		    </if>
+		    <if test="lastupdatedate!=null and lastupdatedate!='' ">
+		        AND t.lastUpdateDate = #{lastupdatedate}
+		    </if>
+		    <if test="ownership!=null and ownership!='' ">
+		        AND t.ownership = #{ownership}
+		    </if>
+		    <if test="version!=null and version!='' ">
+		        AND t.version = #{version}
+		    </if>
+		    <if test="biids!=null and biids!='' ">
+		        AND t.biids = #{biids}
+		    </if>
+		    <if test="payamount!=null and payamount!='' ">
+		        AND t.payAmount = #{payamount}
+		    </if>
+		    <if test="payrecordid!=null and payrecordid!='' ">
+		        AND t.payRecordId = #{payrecordid}
+		    </if>
+		    <if test="payresult!=null and payresult!='' ">
+		        AND t.payResult = #{payresult}
+		    </if>
+		    <if test="transactionid!=null and transactionid!='' ">
+		        AND t.transactionId = #{transactionid}
+		    </if>
+		    <if test="userno!=null and userno!='' ">
+		        AND t.userNo = #{userno}
+		    </if>
+		    <if test="channeluserId!=null and channeluserId!='' ">
+		        AND t.channelUser_id = #{channeluserId}
+		    </if>
+		    <if test="paystatusId!=null and paystatusId!='' ">
+		        AND t.payStatus_id = #{paystatusId}
+		    </if>
+		    <if test="serviceaccountId!=null and serviceaccountId!='' ">
+		        AND t.serviceAccount_id = #{serviceaccountId}
+		    </if>
+		    <if test="orgno!=null and orgno!='' ">
+		        AND t.orgNo = #{orgno}
+		    </if>
+		    <if test="transactiontype!=null and transactiontype!='' ">
+		        AND t.transactionType = #{transactiontype}
+		    </if>
+	    </where>
+	</sql>
+	
+	
+	<select id="selectById" resultMap="bizpaylogResult" parameterType="java.lang.String">
+		select
+			<include refid="Base_Column_List" /> 
+		from 
+			 BIZ_PAYLOG t 
+	    LEFT JOIN biz_channelserviceaccount a ON t.serviceAccount_id = a.id
+		where 
+			t.ID = #{id}
+	</select>
+	
+	<select id="selectList" resultMap="bizpaylogResult" parameterType="com.prj.biz.bean.etbc.BizPaylog" >
+		select
+			<include refid="Base_Column_List" />
+		from 
+			 BIZ_PAYLOG  t 
+	    LEFT JOIN biz_channelserviceaccount a ON t.serviceAccount_id = a.id 
+		<include refid="query_where" /> 
+		<include refid="etbc-pagination.mysql_page" /> 
+	</select>
+	
+	<select id="selectTotal" resultType="Integer" parameterType="com.prj.biz.bean.etbc.BizPaylog">
+		select
+		    count(ID)
+		from 
+			 BIZ_PAYLOG  t 
+		<include refid="query_where" />  
+	</select>
+	
+	<insert id="insert" parameterType="com.prj.biz.bean.etbc.BizPaylog">
+		<selectKey order="BEFORE" keyProperty="id" resultType="java.lang.String">
+        <![CDATA[ 
+           select upper(replace(uuid(),'-','')) from dual 
+       	]]> 
+       	</selectKey>
+       	INSERT INTO BIZ_PAYLOG 
+			(id,createDate,lastUpdateDate,ownership,version,biids,payAmount,payRecordId,payResult,transactionId,userNo,channelUser_id,payStatus_id,serviceAccount_id,orgNo,transactionType)
+		VALUES 
+			(#{id},#{createdate},#{lastupdatedate},#{ownership},#{version},#{biids},#{payamount},#{payrecordid},#{payresult},#{transactionid},#{userno},#{channeluserId},#{paystatusId},#{serviceaccountId},#{orgno},#{transactiontype})
+    </insert> 
+    
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		INSERT INTO BIZ_PAYLOG 
+			(id,createDate,lastUpdateDate,ownership,version,biids,payAmount,payRecordId,payResult,transactionId,userNo,channelUser_id,payStatus_id,serviceAccount_id,orgNo,transactionType)
+		VALUES 
+		<foreach collection="list" item="item" index="index" separator="," >
+			(<![CDATA[ upper(replace(uuid(),'-',''))]]>,#{createdate},#{lastupdatedate},#{ownership},#{version},#{biids},#{payamount},#{payrecordid},#{payresult},#{transactionid},#{userno},#{channeluserId},#{paystatusId},#{serviceaccountId},#{orgno},#{transactiontype})
+		</foreach>
+	</insert>
+	
+    <update id="update" parameterType="com.prj.biz.bean.etbc.BizPaylog">
+     UPDATE BIZ_PAYLOG
+	     <set>
+			<if test="id!=null and id!='' ">
+				id = #{id}
+			</if>
+			<if test="createdate!=null and createdate!='' ">
+				createDate = #{createdate}
+			</if>
+			<if test="lastupdatedate!=null and lastupdatedate!='' ">
+				lastUpdateDate = #{lastupdatedate}
+			</if>
+			<if test="ownership!=null and ownership!='' ">
+				ownership = #{ownership}
+			</if>
+			<if test="version!=null and version!='' ">
+				version = #{version}
+			</if>
+			<if test="biids!=null and biids!='' ">
+				biids = #{biids}
+			</if>
+			<if test="payamount!=null and payamount!='' ">
+				payAmount = #{payamount}
+			</if>
+			<if test="payrecordid!=null and payrecordid!='' ">
+				payRecordId = #{payrecordid}
+			</if>
+			<if test="payresult!=null and payresult!='' ">
+				payResult = #{payresult}
+			</if>
+			<if test="transactionid!=null and transactionid!='' ">
+				transactionId = #{transactionid}
+			</if>
+			<if test="userno!=null and userno!='' ">
+				userNo = #{userno}
+			</if>
+			<if test="channeluserId!=null and channeluserId!='' ">
+				channelUser_id = #{channeluserId}
+			</if>
+			<if test="paystatusId!=null and paystatusId!='' ">
+				payStatus_id = #{paystatusId}
+			</if>
+			<if test="serviceaccountId!=null and serviceaccountId!='' ">
+				serviceAccount_id = #{serviceaccountId}
+			</if>
+			<if test="orgno!=null and orgno!='' ">
+				orgNo = #{orgno}
+			</if>
+			<if test="transactiontype!=null and transactiontype!='' ">
+				transactionType = #{transactiontype}
+			</if>
+		</set>
+	    ID = #{id}
+    </update>
+
+    <update id="updateBatchById" parameterType="java.util.List">
+	    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	        UPDATE  BIZ_PAYLOG
+	    <set>
+			<if test="id!=null and id!='' ">
+				id = #{id}
+			</if>
+			<if test="createdate!=null and createdate!='' ">
+				createDate = #{createdate}
+			</if>
+			<if test="lastupdatedate!=null and lastupdatedate!='' ">
+				lastUpdateDate = #{lastupdatedate}
+			</if>
+			<if test="ownership!=null and ownership!='' ">
+				ownership = #{ownership}
+			</if>
+			<if test="version!=null and version!='' ">
+				version = #{version}
+			</if>
+			<if test="biids!=null and biids!='' ">
+				biids = #{biids}
+			</if>
+			<if test="payamount!=null and payamount!='' ">
+				payAmount = #{payamount}
+			</if>
+			<if test="payrecordid!=null and payrecordid!='' ">
+				payRecordId = #{payrecordid}
+			</if>
+			<if test="payresult!=null and payresult!='' ">
+				payResult = #{payresult}
+			</if>
+			<if test="transactionid!=null and transactionid!='' ">
+				transactionId = #{transactionid}
+			</if>
+			<if test="userno!=null and userno!='' ">
+				userNo = #{userno}
+			</if>
+			<if test="channeluserId!=null and channeluserId!='' ">
+				channelUser_id = #{channeluserId}
+			</if>
+			<if test="paystatusId!=null and paystatusId!='' ">
+				payStatus_id = #{paystatusId}
+			</if>
+			<if test="serviceaccountId!=null and serviceaccountId!='' ">
+				serviceAccount_id = #{serviceaccountId}
+			</if>
+			<if test="orgno!=null and orgno!='' ">
+				orgNo = #{orgno}
+			</if>
+			<if test="transactiontype!=null and transactiontype!='' ">
+				transactionType = #{transactiontype}
+			</if>
+    	</set>
+		    where 
+			    ID = #{id}
+		</foreach>
+	</update>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+         DELETE FROM BIZ_PAYLOG WHERE ID = #{id}
+    </delete>
+     
+	<delete id="deleteByIds" parameterType="java.util.List">
+	    delete from 
+			BIZ_PAYLOG
+		where 
+			ID IN  
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+		    #{id}  
+        </foreach>  
+	</delete>
+	
+</mapper>

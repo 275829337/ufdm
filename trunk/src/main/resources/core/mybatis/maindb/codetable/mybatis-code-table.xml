@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.prj.biz.dao.maindb.codetable.CodeTableDao">
+
+    <resultMap id="codeTableResult" type="com.prj.biz.bean.codetable.CodeTable">
+		<result property="id" column="ID" />
+		<result property="parentId" column="PARENT_ID" />
+		<result property="code" column="CODE" />
+		<result property="description" column="DESCRIPTION" />
+	</resultMap>
+
+	<select id="selectTenantStatusList" resultMap="codeTableResult" >
+		select 
+		    t.id ID,0 PARENT_ID,t.id CODE,t.desc DESCRIPTION
+		from 
+			 tenantstatus t 
+	</select>
+		
+	<select id="selectTenantTypeList" resultMap="codeTableResult" >
+		select 
+		    t.id ID,0 PARENT_ID,t.id CODE,t.desc DESCRIPTION 
+		from 
+			 tenanttype t 
+	</select>
+		
+	<select id="selectBusinessDurationList" resultMap="codeTableResult" >
+		select 
+		    t.id ID,0 PARENT_ID,t.id CODE,t.desc DESCRIPTION 
+		from 
+			 businessduration t 
+	</select>
+	
+	<select id="selectEnterpriseScaleList" resultMap="codeTableResult" >
+		select 
+		    t.id ID,0 PARENT_ID,t.id CODE,t.desc DESCRIPTION 
+		from 
+			 enterprisescale t 
+	</select>
+	
+	<select id="selectCountyList" resultMap="codeTableResult" >
+		select 
+		    t.area_id ID,t.parent_id PARENT_ID,t.area_id CODE,t.area_name DESCRIPTION 
+		from
+		    areas t 
+		where 
+		    t.area_type = 0
+	</select>
+	
+	<select id="selectProvinceList" resultMap="codeTableResult" >
+		select 
+		    t.area_id ID,t.parent_id PARENT_ID,t.area_id CODE,t.area_name DESCRIPTION 
+		from
+		    areas t 
+		where 
+		    t.area_type = 1
+	</select>
+	
+	<select id="selectCityList" resultMap="codeTableResult" >
+		select 
+		    t.area_id ID,t.parent_id PARENT_ID,t.area_id CODE,t.area_name DESCRIPTION 
+		from
+		    areas t 
+		where 
+		    t.area_type = 2
+	</select>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    					http://www.springframework.org/schema/beans/spring-beans.xsd  
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+        				http://www.springframework.org/schema/context 
+        				http://www.springframework.org/schema/context/spring-context-4.0.xsd  
+        				http://www.springframework.org/schema/mvc 
+        				http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+        				
+    <description>Shiro 配置</description>  
+    
+    <!-- Shiro Filter  -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean"> 
+        <property name="securityManager" ref="securityManager" />
+        <property name="loginUrl" value="/loginTimeout.html" />
+        <property name="unauthorizedUrl" value="/unauthorized.html" />
+        <property name="filterChainDefinitionMap" ref="shiroChainDefinition" />
+    </bean> 
+    
+    <!-- 添加 动态权限 定义 -->
+    <bean id="shiroChainDefinition" class="com.prj.core.shiro.ShiroChainDefinition">  
+        <property name="filterChainDefinitions">
+            <value>
+                / = anon
+                /hessian/** = anon 
+                /captcha/** = anon
+                /css/** = anon
+                /images/** = anon
+                /js/** = anon
+                /** = anon  
+            </value>
+        </property>
+    </bean>
+  
+    <!-- 添加 securityManager 定义 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!-- 使用ehcache缓存 -->
+        <!-- <property name="cacheManager" ref="shiroEhcacheManager" />  -->
+        <property name="realm" ref="loginRealm" />
+    </bean>  
+    
+    <!-- 自定义的Realm -->
+    <bean id="loginRealm" class="com.prj.core.shiro.LoginRealm" />
+    
+</beans>
