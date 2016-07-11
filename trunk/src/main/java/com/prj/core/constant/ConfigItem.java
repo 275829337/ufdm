@@ -1,11 +1,11 @@
 package com.prj.core.constant;
 
 /**
- * 系统配置文件
+ * 配置项
  * @author 1936
  *
  */
-public class ProConstants {
+public class ConfigItem {
 	
 	// 文件服务器
 	public static String IMAGE_SERVER;

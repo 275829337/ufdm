@@ -25,7 +25,7 @@ import com.prj.biz.service.sysuser.SysUserService;
 import com.prj.core.bean.exp.JkException;
 import com.prj.core.bean.resp.RespBean;
 import com.prj.core.bean.resp.RespPagination;
-import com.prj.core.constant.PerConstants;
+import com.prj.core.constant.SysConstants;
 import com.prj.utils.JkMd5Util;
 
 /**
@@ -159,7 +159,7 @@ public class SysUserAction extends BaseAction
 	
 	@RequestMapping("doEnEditSysUserInfo")
 	public ModelAndView doEnEditSysUserInfo() throws Exception{
-		SysUser sessionSysUser = (SysUser) doGetSession(PerConstants.SESSION_SYS_USER);
+		SysUser sessionSysUser = (SysUser) doGetSession(SysConstants.SESSION_SYS_USER);
 		SysUser sysUser=getSysUserById(sessionSysUser.getId());
 		String roleIds="";
 		if(sysUser!=null&&sysUser.getHxRoleList()!=null){

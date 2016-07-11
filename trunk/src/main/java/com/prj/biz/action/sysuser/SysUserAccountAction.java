@@ -24,7 +24,7 @@ import com.prj.biz.service.permission.PerRoleService;
 import com.prj.biz.service.sysuser.SysUserService;
 import com.prj.core.bean.exp.JkException;
 import com.prj.core.bean.resp.RespBean;
-import com.prj.core.constant.PerConstants;
+import com.prj.core.constant.SysConstants;
 import com.prj.core.shiro.LoginResult;
 import com.prj.core.shiro.UserLoginInterface;
 import com.prj.core.shiro.UserLoginoken;
@@ -123,7 +123,7 @@ public class SysUserAccountAction extends BaseAction
 		);
 		Subject currentUser = SecurityUtils.getSubject();
 		currentUser.login(token);
-		doSetSession(PerConstants.SESSION_SYS_USER, (SysUser) ((LoginResult) currentUser.getPrincipal()).getUserObject());
+		doSetSession(SysConstants.SESSION_SYS_USER, (SysUser) ((LoginResult) currentUser.getPrincipal()).getUserObject());
 		respBean.setBody("登录成功");
 		return respBean;
 	}
@@ -138,7 +138,7 @@ public class SysUserAccountAction extends BaseAction
 	@RequestMapping("doEnEditSysUserPass")
 	public ModelAndView doEnEditSysUserPassAction() throws Exception
 	{
-		SysUser sessionSysUser = (SysUser) doGetSession(PerConstants.SESSION_SYS_USER); 
+		SysUser sessionSysUser = (SysUser) doGetSession(SysConstants.SESSION_SYS_USER); 
 		SysUser sysUser = sysUserService.doGetById(sessionSysUser.getId());
 		Map<String,SysUser> model=new HashMap<String,SysUser>();
 		model.put("sysUser", sysUser);
@@ -157,7 +157,7 @@ public class SysUserAccountAction extends BaseAction
 	public RespBean<String> doEditSysUserPassAction(SysUser sysUser) throws Exception
 	{
 		RespBean<String> resp=new RespBean<String>();
-		SysUser currSysUser = sysUserService.doGetById(((SysUser) doGetSession(PerConstants.SESSION_SYS_USER)).getId());
+		SysUser currSysUser = sysUserService.doGetById(((SysUser) doGetSession(SysConstants.SESSION_SYS_USER)).getId());
 		if (sysUser == null || sysUser.getOldLoginPass()==null || !currSysUser.getLoginPass().equals(JkMd5Util.MD5Encode(sysUser.getOldLoginPass()))){			
 			//原密码不符
 			throw new JkException(RespMessEnum.RESP_CODE_0001004.getRespCode());
@@ -186,7 +186,7 @@ public class SysUserAccountAction extends BaseAction
 	 */
 	@RequestMapping("doSysUserLogout")
 	public ModelAndView doSysUserLogout() throws Exception{ 
-		doRemoveSession(PerConstants.SESSION_SYS_USER);
+		doRemoveSession(SysConstants.SESSION_SYS_USER);
 		return new ModelAndView("/sysuser/sysUserLogin");
 	}
 
