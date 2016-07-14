@@ -57,7 +57,8 @@ public class SysUser extends BaseEntity
 	private String              depId;   
 	//用户部门名称
 	private String              depName;
-	
+	// 记住密码
+	private boolean             remainPass;
 	
 	public String getId() {
 		return id;
@@ -161,8 +162,6 @@ public class SysUser extends BaseEntity
 	public void setHxRoleIds(String hxRoleIds) {
 		this.hxRoleIds = hxRoleIds;
 	}
-	
-	
 	public String getDepId() {
 		return depId;
 	}
@@ -175,7 +174,12 @@ public class SysUser extends BaseEntity
 	public void setDepName(String depName) {
 		this.depName = depName;
 	}
-	
+	public boolean getRemainPass() {
+		return remainPass;
+	}
+	public void setRemainPass(boolean remainPass) {
+		this.remainPass = remainPass;
+	}
 	
 	@Override
 	public String toString() {
@@ -184,7 +188,7 @@ public class SysUser extends BaseEntity
 				+ ", telephone=" + telephone + ", email=" + email + ", userStatus=" + userStatus + ", createTime="
 				+ createTime + ", hxResourceList=" + hxResourceList + ", hxResourceMenuList=" + hxResourceMenuList
 				+ ", hxResourceMenuListJson=" + hxResourceMenuListJson + ", hxRoleList=" + hxRoleList + ", verifyCode="
-				+ verifyCode + ", hxRoleIds=" + hxRoleIds + ", depId=" + depId + ", depName=" + depName + "]";
+				+ verifyCode + ", hxRoleIds=" + hxRoleIds + ", depId=" + depId + ", depName=" + depName
+				+ ", remainPass=" + remainPass + "]";
 	}
-	
 }

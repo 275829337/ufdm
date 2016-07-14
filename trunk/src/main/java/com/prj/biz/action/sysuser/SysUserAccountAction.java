@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -22,14 +23,15 @@ import com.prj.biz.enums.RespMessEnum;
 import com.prj.biz.service.permission.PerResourceService;
 import com.prj.biz.service.permission.PerRoleService;
 import com.prj.biz.service.sysuser.SysUserService;
-import com.prj.core.bean.exp.JkException;
+import com.prj.core.bean.exp.UfdmException;
 import com.prj.core.bean.resp.RespBean;
 import com.prj.core.constant.SysConstants;
 import com.prj.core.shiro.LoginResult;
 import com.prj.core.shiro.UserLoginInterface;
 import com.prj.core.shiro.UserLoginoken;
-import com.prj.utils.JkMd5Util;
-import com.prj.utils.JkRegexUtil;
+import com.prj.utils.UfdmCookieUtil;
+import com.prj.utils.UfdmMd5Util;
+import com.prj.utils.UfdmRegexUtil;
 
 import net.sf.json.JSONArray;
 
@@ -77,26 +79,28 @@ public class SysUserAccountAction extends BaseAction
 	 */
 	@RequestMapping("doSysUserLogin")
 	@ResponseBody
-	public RespBean<String> doSysUserLoginAction(SysUser sysUser) throws Exception
+	public RespBean<String> doSysUserLoginAction(HttpServletResponse response,SysUser sysUser) throws Exception
 	{
 		dataLogger.info("开始登录："+sysUser);
 		
 		RespBean<String> respBean = new RespBean<String>();
 		if (sysUser == null || sysUser.getLoginName()==null || "".equals(sysUser.getLoginName()))	{			
-			throw new JkException(RespMessEnum.RESP_CODE_0001000.getRespCode());
+			throw new UfdmException(RespMessEnum.RESP_CODE_0001000.getRespCode());
 		}
 		if (sysUser == null || sysUser.getLoginPass()==null || "".equals(sysUser.getLoginPass()))	{			
-			throw new JkException(RespMessEnum.RESP_CODE_0001001.getRespCode());
+			throw new UfdmException(RespMessEnum.RESP_CODE_0001001.getRespCode());
 		}
 		// 登录
-		sysUser.setLoginPass(JkMd5Util.MD5Encode(sysUser.getLoginPass()));
+		sysUser.setLoginPass(UfdmMd5Util.MD5Encode(sysUser.getLoginPass()));
 		final SysUser loginSysUser = sysUserService.doGetSysUserForLogin(sysUser);
 		if (loginSysUser == null || loginSysUser.getId()==null || "".equals(loginSysUser.getId()))	{			
-			throw new JkException(RespMessEnum.RESP_CODE_0001002.getRespCode());
+			throw new UfdmException(RespMessEnum.RESP_CODE_0001002.getRespCode());
 		}
+		
+		String originPass = sysUser.getLoginPass(); 
 		UserLoginoken token = new UserLoginoken(
 			sysUser.getLoginName(),
-			JkMd5Util.MD5Encode(sysUser.getLoginPass()),
+			UfdmMd5Util.MD5Encode(sysUser.getLoginPass()),
 			new UserLoginInterface(){
 				@Override
 				public LoginResult doCallLogin() throws Exception{
@@ -124,6 +128,10 @@ public class SysUserAccountAction extends BaseAction
 		Subject currentUser = SecurityUtils.getSubject();
 		currentUser.login(token);
 		doSetSession(SysConstants.SESSION_SYS_USER, (SysUser) ((LoginResult) currentUser.getPrincipal()).getUserObject());
+		if(sysUser.getRemainPass()){ 
+			UfdmCookieUtil.addCookie(response, "loginName", sysUser.getLoginName(), 60*60*24*365);
+			UfdmCookieUtil.addCookie(response, "loginPass", originPass, 60*60*24*365);
+		}
 		respBean.setBody("登录成功");
 		return respBean;
 	}
@@ -158,20 +166,20 @@ public class SysUserAccountAction extends BaseAction
 	{
 		RespBean<String> resp=new RespBean<String>();
 		SysUser currSysUser = sysUserService.doGetById(((SysUser) doGetSession(SysConstants.SESSION_SYS_USER)).getId());
-		if (sysUser == null || sysUser.getOldLoginPass()==null || !currSysUser.getLoginPass().equals(JkMd5Util.MD5Encode(sysUser.getOldLoginPass()))){			
+		if (sysUser == null || sysUser.getOldLoginPass()==null || !currSysUser.getLoginPass().equals(UfdmMd5Util.MD5Encode(sysUser.getOldLoginPass()))){			
 			//原密码不符
-			throw new JkException(RespMessEnum.RESP_CODE_0001004.getRespCode());
+			throw new UfdmException(RespMessEnum.RESP_CODE_0001004.getRespCode());
 		}
-		if(sysUser == null || sysUser.getLoginPass()==null||!JkRegexUtil.isPwd(sysUser.getLoginPass())){
+		if(sysUser == null || sysUser.getLoginPass()==null||!UfdmRegexUtil.isPwd(sysUser.getLoginPass())){
 			//密码格式错误
-			throw new JkException(RespMessEnum.RESP_CODE_0001006.getRespCode());
+			throw new UfdmException(RespMessEnum.RESP_CODE_0001006.getRespCode());
 		}else{
 			if(sysUser.getRepeatLoginPass()==null||!sysUser.getRepeatLoginPass().equals(sysUser.getLoginPass())){
 				//新密码与确认密码不一致
-				throw new JkException(RespMessEnum.RESP_CODE_0001005.getRespCode());
+				throw new UfdmException(RespMessEnum.RESP_CODE_0001005.getRespCode());
 			}
 		}
-		currSysUser.setLoginPass(JkMd5Util.MD5Encode(sysUser.getLoginPass()));
+		currSysUser.setLoginPass(UfdmMd5Util.MD5Encode(sysUser.getLoginPass()));
 		sysUserService.doModById(currSysUser);
 		resp.setBody("修改成功！");
 		return resp;

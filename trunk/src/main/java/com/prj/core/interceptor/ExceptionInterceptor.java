@@ -9,10 +9,10 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.prj.biz.enums.RespMessEnum;
-import com.prj.core.bean.exp.JkException;
+import com.prj.core.bean.exp.UfdmException;
 import com.prj.core.bean.resp.RespBean;
 import com.prj.core.bean.resp.RespBeanHead;
-import com.prj.utils.JkJsonUtil;
+import com.prj.utils.UfdmJsonUtil;
 
 /** 
 * @Description: 异常处理拦截器
@@ -35,7 +35,7 @@ public class ExceptionInterceptor implements HandlerExceptionResolver {
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,Exception ex) {
 		try
 		{
-			if(ex instanceof JkException){
+			if(ex instanceof UfdmException){
 				RespBean<String> respBean = new RespBean<String>();
 				RespBeanHead respBeanHead = new RespBeanHead();
 				RespMessEnum [] BuszExpEnums = RespMessEnum.values();
@@ -54,7 +54,7 @@ public class ExceptionInterceptor implements HandlerExceptionResolver {
 				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 				response.setCharacterEncoding("UTF-8");
 				response.setHeader("Cache-Control","no-cache, must-revalidate");
-				response.getWriter().write(JkJsonUtil.Object2Json(respBean));
+				response.getWriter().write(UfdmJsonUtil.Object2Json(respBean));
 			}
 			else if(ex instanceof Exception)
 			{
@@ -71,7 +71,7 @@ public class ExceptionInterceptor implements HandlerExceptionResolver {
 				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 				response.setCharacterEncoding("UTF-8");
 				response.setHeader("Cache-Control","no-cache, must-revalidate");
-				response.getWriter().write(JkJsonUtil.Object2Json(respBean));
+				response.getWriter().write(UfdmJsonUtil.Object2Json(respBean));
 			}
 		}
 		catch(Exception er){

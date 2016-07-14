@@ -9,7 +9,7 @@
     <style>
     	.main{
     		background:#4d61f3;
-			}
+		}
 		input {
 			background: #fff;
 			font-size: 24px;
@@ -17,6 +17,7 @@
 		label {
 			font-size: 24px;
 		}
+
     </style>
 </head>
 <body class="main">
@@ -25,8 +26,9 @@
 			<div class="row">
 				<div class="column">
 					<div>
-						<img src = '<spring:url value="/img/login/logo-yun.png" />' alt="logo" class="img-circle center-block" />  
-						<div class="text-center" style="margin-top: 2%;font-size: 32px;color: #000;cursor: default; font-family: '微软雅黑';">ESLink后台管理系统</div>
+<%-- 						<img src = '<spring:url value="/img/login/logo-yun.png" />' alt="logo" class="img-circle center-block" />   --%>
+						<div class="imglogo">1</div>
+						<div class="text-center" style="margin-top: 20%;font-size: 32px;color: #000;cursor: default; font-family: '微软雅黑';">UFDM（统一格式开发模型）系统</div>
 					</div>
 				</div>
 			</div>

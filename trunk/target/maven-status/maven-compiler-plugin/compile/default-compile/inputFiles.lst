@@ -3,7 +3,6 @@ E:\project\ufdm\trunk\src\main\java\tutorial\despat\bridge\KonkaTV.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\service\permission\PerUserRoleService.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\enums\MonitorProtocolTypeEnum.java
 E:\project\ufdm\trunk\src\main\java\com\prj\utils\JkRSAUtils.java
-E:\project\ufdm\trunk\src\main\java\com\prj\core\constant\ProConstants.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\bean\etbc\BizPaylog.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\bean\codetable\TenantStatus.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\action\_base\BaseAction.java
@@ -15,6 +14,7 @@ E:\project\ufdm\trunk\src\main\java\com\prj\biz\action\sysuser\SysUserAction.jav
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\service\_impl\codetable\CodeTableServiceImpl.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\action\tenant\TenantAction.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\dao\maindb\permission\PerRoleResourceDao.java
+E:\project\ufdm\trunk\src\main\java\com\prj\core\constant\ConfigItem.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\service\_impl\permission\PerRoleResourceServiceImpl.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\service\_impl\tenant\TenantServiceImpl.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\bean\codetable\CodeTable.java
@@ -75,7 +75,6 @@ E:\project\ufdm\trunk\src\main\java\com\prj\utils\JkBase64Util.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\dao\etbcdb\bizpaylog\BizPaylogDao.java
 E:\project\ufdm\trunk\src\main\java\tutorial\mq\MqTest.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\service\tenant\TenantService.java
-E:\project\ufdm\trunk\src\main\java\com\prj\core\constant\PerConstants.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\dao\maindb\permission\PerResourceDao.java
 E:\project\ufdm\trunk\src\main\java\com\prj\utils\JkRequestUtil.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\service\_impl\permission\PerResourceServiceImpl.java
@@ -93,8 +92,8 @@ E:\project\ufdm\trunk\src\main\java\com\prj\biz\dao\maindb\tenant\TenantDao.java
 E:\project\ufdm\trunk\src\main\java\com\prj\core\interceptor\JsonpCallbackFilter.java
 E:\project\ufdm\trunk\src\main\java\tutorial\thread\ArrayListThread.java
 E:\project\ufdm\trunk\src\main\java\tutorial\despat\bridge\AbstractRemoteControl.java
-E:\project\ufdm\trunk\src\main\java\tutorial\despat\single\SingletonThreadSafe.java
 E:\project\ufdm\trunk\src\main\java\tutorial\openfire\XmppTool.java
+E:\project\ufdm\trunk\src\main\java\tutorial\despat\single\SingletonThreadSafe.java
 E:\project\ufdm\trunk\src\main\java\com\prj\utils\ReflectGeneric.java
 E:\project\ufdm\trunk\src\main\java\tutorial\despat\bridge\ChanghongTV.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\action\etbc\bizpaylog\BizPaylogAction.java
@@ -113,5 +112,6 @@ E:\project\ufdm\trunk\src\main\java\com\prj\utils\JkCertUtil.java
 E:\project\ufdm\trunk\src\main\java\Test.java
 E:\project\ufdm\trunk\src\main\java\tutorial\thread\syn\Thread2.java
 E:\project\ufdm\trunk\src\main\java\tutorial\thread\ArrayListThreadGroup.java
+E:\project\ufdm\trunk\src\main\java\com\prj\core\constant\SysConstants.java
 E:\project\ufdm\trunk\src\main\java\com\prj\utils\JkDesUtil.java
 E:\project\ufdm\trunk\src\main\java\com\prj\biz\service\sysuser\SysUserService.java

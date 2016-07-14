@@ -59,7 +59,7 @@
     <mvc:resources mapping="welcome.html" location="/"/>
     
 	<!-- 系统配置文件 -->
-	<bean id="propertiesReader" class="com.prj.core.constant.ProConstants" >
+	<bean id="configItem" class="com.prj.core.constant.ConfigItem" >
 	     <property name="IMAGE_SERVER" value="${imageServer}" />
     </bean>
 

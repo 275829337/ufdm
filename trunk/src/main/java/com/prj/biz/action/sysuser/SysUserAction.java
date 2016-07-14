@@ -22,11 +22,11 @@ import com.prj.biz.service.permission.PerDepartmentService;
 import com.prj.biz.service.permission.PerRoleService;
 import com.prj.biz.service.permission.PerUserRoleService;
 import com.prj.biz.service.sysuser.SysUserService;
-import com.prj.core.bean.exp.JkException;
+import com.prj.core.bean.exp.UfdmException;
 import com.prj.core.bean.resp.RespBean;
 import com.prj.core.bean.resp.RespPagination;
 import com.prj.core.constant.SysConstants;
-import com.prj.utils.JkMd5Util;
+import com.prj.utils.UfdmMd5Util;
 
 /**
  * 描述: 系统用户管理控制类<br>
@@ -191,20 +191,20 @@ public class SysUserAction extends BaseAction
 			//检测用户名是否存在
 			boolean isExist = sysUserService.doCheckSysUserLoginNameExist(sysUser.getLoginName(),sysUser.getId().toString());
 			if(isExist){
-				throw new JkException(RespMessEnum.RESP_CODE_0001003.getRespCode());
+				throw new UfdmException(RespMessEnum.RESP_CODE_0001003.getRespCode());
 			}
 			if(sysUser!=null && sysUser.getLoginPass()!=null && !sysUser.getLoginPass().equals("")){
-				sysUser.setLoginPass(JkMd5Util.MD5Encode(sysUser.getLoginPass()));
+				sysUser.setLoginPass(UfdmMd5Util.MD5Encode(sysUser.getLoginPass()));
 			}
 			sysUserService.doModById(sysUser);
 		}
 		else{
 			boolean isExist = sysUserService.doCheckSysUserLoginNameExist(sysUser.getLoginName(),null);
 			if(isExist){
-				throw new JkException(RespMessEnum.RESP_CODE_0001003.getRespCode());
+				throw new UfdmException(RespMessEnum.RESP_CODE_0001003.getRespCode());
 			}
 			if(sysUser!=null && sysUser.getLoginPass()!=null && !sysUser.getLoginPass().equals("")){
-				sysUser.setLoginPass(JkMd5Util.MD5Encode(sysUser.getLoginPass()));
+				sysUser.setLoginPass(UfdmMd5Util.MD5Encode(sysUser.getLoginPass()));
 			}
 			sysUserService.doSave(sysUser);
 		}
