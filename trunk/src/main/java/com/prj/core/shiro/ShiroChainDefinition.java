@@ -74,14 +74,14 @@ public class ShiroChainDefinition  implements FactoryBean<Ini.Section>
         	}
         }
         //显示系统加载的权限(开发调试用)
-        /**
+        
         logger.info("loading hx-permissions ......");
         for(Iterator<?> it = section.keySet().iterator();it.hasNext();){
         	Object key = it.next();
         	logger.info(key+"="+section.get(key));
         }
         logger.info("load completed \n");
-        */
+        
         return section;
     }
     

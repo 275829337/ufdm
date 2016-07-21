@@ -16,24 +16,32 @@
         				
     <description>Shiro 配置</description>  
     
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">  
+        <constructor-arg value="rememberMe"/>  
+        <property name="httpOnly" value="true"/>  
+        <property name="maxAge" value="2592000"/>  
+    </bean>  
+    
+    <!-- rememberMe管理器 -->  
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">  
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>  
+        <property name="cookie" ref="rememberMeCookie"/>  
+    </bean> 
+    
+    
     <!-- Shiro Filter  -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean"> 
         <property name="securityManager" ref="securityManager" />
-        <property name="loginUrl" value="/loginTimeout.html" />
+        <property name="loginUrl" value="/loginTimeOut.jsp" />
         <property name="unauthorizedUrl" value="/unauthorized.html" />
         <property name="filterChainDefinitionMap" ref="shiroChainDefinition" />
     </bean> 
-    
     <!-- 添加 动态权限 定义 -->
     <bean id="shiroChainDefinition" class="com.prj.core.shiro.ShiroChainDefinition">  
         <property name="filterChainDefinitions">
             <value>
-                / = anon
-                /hessian/** = anon 
-                /captcha/** = anon
-                /css/** = anon
-                /images/** = anon
-                /js/** = anon
+                /sysuser/account/doEnSysUserLoginSuccess = authc 
+                /sysuser/account/doSysUserLogout = logout
                 /** = anon  
             </value>
         </property>
@@ -44,6 +52,7 @@
         <!-- 使用ehcache缓存 -->
         <!-- <property name="cacheManager" ref="shiroEhcacheManager" />  -->
         <property name="realm" ref="loginRealm" />
+        <property name="rememberMeManager" ref="rememberMeManager"/>  
     </bean>  
     
     <!-- 自定义的Realm -->

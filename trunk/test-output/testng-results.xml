@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="276" started-at="2016-07-21T10:12:59Z" finished-at="2016-07-21T10:12:59Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="276" started-at="2016-07-21T10:12:59Z" finished-at="2016-07-21T10:12:59Z">
+      <class name="tutorial.shiro.LoginLogoutTest">
+        <test-method status="PASS" signature="testHelloworld()[pri:0, instance:tutorial.shiro.LoginLogoutTest@4ffdd6db]" name="testHelloworld" duration-ms="258" started-at="2016-07-21T18:12:59Z" finished-at="2016-07-21T18:12:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testHelloworld -->
+      </class> <!-- tutorial.shiro.LoginLogoutTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

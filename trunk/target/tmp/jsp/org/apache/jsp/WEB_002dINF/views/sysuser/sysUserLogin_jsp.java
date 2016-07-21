@@ -123,8 +123,6 @@ public final class sysUserLogin_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("\t\t\t<div class=\"row\">\r\n");
       out.write("\t\t\t\t<div class=\"column\">\r\n");
       out.write("\t\t\t\t\t<div>\r\n");
-      out.write("\r\n");
-      out.write("\t\t\t\t\t\t<div class=\"imglogo\">1</div>\r\n");
       out.write("\t\t\t\t\t\t<div class=\"text-center\" style=\"margin-top: 20%;font-size: 32px;color: #000;cursor: default; font-family: '微软雅黑';\">UFDM（统一格式开发模型）系统</div>\r\n");
       out.write("\t\t\t\t\t</div>\r\n");
       out.write("\t\t\t\t</div>\r\n");
@@ -195,6 +193,9 @@ public final class sysUserLogin_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("\t\t\tdataType: \"json\",\r\n");
       out.write("\t\t\tasync: false,\r\n");
       out.write("\t\t\tsuccess: function(data){\r\n");
+      out.write("\t\t\t\t\r\n");
+      out.write("\t\t\t\tconsole.log(data);\r\n");
+      out.write("\t\t\t\t\r\n");
       out.write("\t\t\t\tif(data.head.respCode=='0000000'){\r\n");
       out.write("\t\t\t\t\twindow.location='");
       if (_jspx_meth_spring_url_11(_jspx_page_context))

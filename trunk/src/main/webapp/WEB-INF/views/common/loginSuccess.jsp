@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ page import="com.prj.biz.bean.sysuser.SysUser" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -21,32 +20,17 @@
 	</style>
 </head>
 
-<%
-   SysUser sessionSysUser = (SysUser) session.getAttribute("sessionSysUser");
-   if(sessionSysUser==null)
-   {
-%>
-   <script>
-       window.location='<spring:url value="/sysuser/account/doEnSysUserLogin" />';
-   </script>
-<%
-   }
-   else
-   {
-%>
-<!-- style="background: url('/img/login/welcome.png') no-repeat left top; background-size: 100%;" -->
 <body>
-
 	<div id="navigationDiv" class="navbar navbar-fixed-top bs-docs-nav navbar-default">
 		<div class="container-fluid">
 			<div class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 			
 				<ul class="nav navbar-nav">
-					<li class="dropdown dropdown-big"><a class="open">ESLink&nbsp;|&nbsp;后台管理系统</a></li>
+					<li class="dropdown dropdown-big"><a class="open">UFDM（统一格式开发模型）系统&nbsp;|&nbsp;后台管理系统</a></li>
 				</ul>
 				
 				<ul class="nav navbar-nav pull-right">
-					<li class="dropdown pull-right"><a class="open pull-left">您好，<%=sessionSysUser.getLoginName()%></a>
+					<li class="dropdown pull-right"><a class="open pull-left">您好，${sessionScope.sessionSysUser.loginName}</a>
 						<a class="pull-left" href="javascript:;" id="LogOut">退出登录</a>
 						<div class="clearfix"></div>
 					</li>
@@ -70,9 +54,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="navbar-default">
-		<p style="height: 30px; line-height: 30px; color: #999 !important; text-align: center; margin: 0;">Copy right@2015Goldcard All Rights Reserved</p>
-	</div>
 	<script type="text/javascript">
 		$(function() {
 			//根据导航栏设置内容的margin-top属性
@@ -84,7 +65,7 @@
 			});
 		});
 	
-		var _jsonMenuData = $.parseJSON('<%=sessionSysUser.getHxResourceMenuListJson()%>');
+		var _jsonMenuData = $.parseJSON('${sessionScope.sessionSysUser.hxResourceMenuListJson}');
 		var _menuItem="",_direct="<spring:url value='/'/>".replace(/\/$/,"");
 	    $.each(_jsonMenuData, function(a,b){
 	         var _strFirst="",_strSec="";
@@ -163,6 +144,4 @@
         
     </script>
 </body>
-<%
-   }
-%>
+

@@ -26,8 +26,6 @@
 			<div class="row">
 				<div class="column">
 					<div>
-<%-- 						<img src = '<spring:url value="/img/login/logo-yun.png" />' alt="logo" class="img-circle center-block" />   --%>
-						<div class="imglogo">1</div>
 						<div class="text-center" style="margin-top: 20%;font-size: 32px;color: #000;cursor: default; font-family: '微软雅黑';">UFDM（统一格式开发模型）系统</div>
 					</div>
 				</div>
@@ -89,6 +87,9 @@
 			dataType: "json",
 			async: false,
 			success: function(data){
+				
+				console.log(data);
+				
 				if(data.head.respCode=='0000000'){
 					window.location='<spring:url value="/sysuser/account/doEnSysUserLoginSuccess" />';
 				}

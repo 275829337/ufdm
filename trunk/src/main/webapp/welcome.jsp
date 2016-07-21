@@ -6,7 +6,7 @@
 	<script type="text/javascript" src='<spring:url value="/js/_base/jquery-1.12.1.min.js" />'></script>
     <script type="text/javascript">
 	$(function() {
-		 location.href = '<spring:url value="/sysuser/account/doEnSysUserLogin" />';
+		 location.href = '<spring:url value="/loginTimeOut.jsp" />';
 	});
 	</script>  
 </head>

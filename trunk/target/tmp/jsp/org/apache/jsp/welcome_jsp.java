@@ -117,7 +117,7 @@ public final class welcome_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.springframework.web.servlet.tags.UrlTag _jspx_th_spring_url_1 = (org.springframework.web.servlet.tags.UrlTag) _jspx_tagPool_spring_url_value_nobody.get(org.springframework.web.servlet.tags.UrlTag.class);
     _jspx_th_spring_url_1.setPageContext(_jspx_page_context);
     _jspx_th_spring_url_1.setParent(null);
-    _jspx_th_spring_url_1.setValue("/sysuser/account/doEnSysUserLogin");
+    _jspx_th_spring_url_1.setValue("/loginTimeOut.jsp");
     int[] _jspx_push_body_count_spring_url_1 = new int[] { 0 };
     try {
       int _jspx_eval_spring_url_1 = _jspx_th_spring_url_1.doStartTag();

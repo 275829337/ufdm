@@ -10,7 +10,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
  * @author 胡义振
  * @date 2013-6-7  
  */
-public class UserLoginoken  extends UsernamePasswordToken
+public class UserLoginToken  extends UsernamePasswordToken
 {
 	private static final long	serialVersionUID	= 6461485690257267152L;
 	
@@ -19,15 +19,15 @@ public class UserLoginoken  extends UsernamePasswordToken
 	
 	private BigDecimal userId;
 
-	public UserLoginoken() {
+	public UserLoginToken() {
 		super();
 	}
 	
-	public UserLoginoken(String paramUserName, String paramPassword){
+	public UserLoginToken(String paramUserName, String paramPassword){
 		super(paramUserName, paramPassword);
 	}
 	
-	public UserLoginoken(String paramUserName, String paramPassword,UserLoginInterface paramUserLoginInterface){
+	public UserLoginToken(String paramUserName, String paramPassword,UserLoginInterface paramUserLoginInterface){
 		super(paramUserName, paramPassword);
 		this.userLoginInterface = paramUserLoginInterface;
 	}

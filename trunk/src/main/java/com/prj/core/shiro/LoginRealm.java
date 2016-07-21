@@ -41,8 +41,15 @@ public class LoginRealm extends AuthorizingRealm
     {  
 	    try
 		{
-	    	UserLoginoken token = (UserLoginoken) authcToken;
+	    	UserLoginToken token = (UserLoginToken) authcToken;
 	    	LoginResult loginResult = token.getUserLoginInterface().doCallLogin();
+	    	
+	    	System.out.println("\n Password:"+new String(token.getPassword()));
+	    	
+	    	System.out.println("\n getName():"+getName());
+	    	
+	    	
+	    	
 	    	return new SimpleAuthenticationInfo(loginResult,token.getPassword(),getName());
 		}
 	    catch (Exception e)
@@ -63,6 +70,10 @@ public class LoginRealm extends AuthorizingRealm
 	{  
 		try
 		{
+			System.out.println();
+			System.out.println("授权认证...................................");
+			System.out.println();
+			
 			//获取登录信息
 			LoginResult loginResult = (LoginResult) principals.fromRealm(getName()).iterator().next();
 			//用户ID
@@ -86,6 +97,12 @@ public class LoginRealm extends AuthorizingRealm
 			}
 	        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roleNames);
 		    info.setStringPermissions(permissions);
+		    
+		    System.out.println();
+			System.out.println("角色："+roleNames);
+			System.out.println();
+			System.out.println("权限："+permissions);
+		    
 		    return info;
 		}
 		catch (Exception paramExp)

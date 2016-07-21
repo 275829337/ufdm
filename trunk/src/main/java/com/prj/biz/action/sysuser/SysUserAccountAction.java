@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ import com.prj.core.bean.resp.RespBean;
 import com.prj.core.constant.SysConstants;
 import com.prj.core.shiro.LoginResult;
 import com.prj.core.shiro.UserLoginInterface;
-import com.prj.core.shiro.UserLoginoken;
+import com.prj.core.shiro.UserLoginToken;
 import com.prj.utils.UfdmCookieUtil;
 import com.prj.utils.UfdmMd5Util;
 import com.prj.utils.UfdmRegexUtil;
@@ -62,12 +63,25 @@ public class SysUserAccountAction extends BaseAction
 	@RequestMapping("doEnSysUserLogin")
 	public ModelAndView doEnSysUserLogin() throws Exception
 	{
+		Subject currentUser = SecurityUtils.getSubject();
+		
+		System.out.println("isRemebered："+currentUser.isRemembered());
+		System.out.println("isAuthenticated："+currentUser.isAuthenticated());
+		System.out.println("getPrincipal："+currentUser.getPrincipal());
+		
+		if(currentUser.isAuthenticated() || currentUser.isRemembered()){
+			return new ModelAndView("/common/loginSuccess");
+		}
+		
 		return new ModelAndView("/sysuser/sysUserLogin");
 	}
 	
 	@RequestMapping("doEnSysUserLoginSuccess")
 	public ModelAndView doEnSysUserLoginSuccess() throws Exception
 	{
+		
+
+		
 		return new ModelAndView("/common/loginSuccess");
 	}
 	
@@ -98,7 +112,7 @@ public class SysUserAccountAction extends BaseAction
 		}
 		
 		String originPass = sysUser.getLoginPass(); 
-		UserLoginoken token = new UserLoginoken(
+		UserLoginToken token = new UserLoginToken(
 			sysUser.getLoginName(),
 			UfdmMd5Util.MD5Encode(sysUser.getLoginPass()),
 			new UserLoginInterface(){
@@ -125,13 +139,36 @@ public class SysUserAccountAction extends BaseAction
 				}
 		    }
 		);
-		Subject currentUser = SecurityUtils.getSubject();
-		currentUser.login(token);
-		doSetSession(SysConstants.SESSION_SYS_USER, (SysUser) ((LoginResult) currentUser.getPrincipal()).getUserObject());
-		if(sysUser.getRemainPass()){ 
-			UfdmCookieUtil.addCookie(response, "loginName", sysUser.getLoginName(), 60*60*24*365);
-			UfdmCookieUtil.addCookie(response, "loginPass", originPass, 60*60*24*365);
+		
+		try
+		{
+			
+			Subject currentUser = SecurityUtils.getSubject();
+			token.setRememberMe(true);
+			currentUser.login(token);
+			
+			System.out.println("isRemebered："+currentUser.isRemembered());
+			System.out.println("isAuthenticated："+currentUser.isAuthenticated());
+			System.out.println("getPrincipal："+currentUser.getPrincipal());
+			
+			System.out.println("\n**************************登陆成功******************************");
+			
+			Session session = currentUser.getSession();
+			session.setAttribute(SysConstants.SESSION_SYS_USER, (SysUser) ((LoginResult) currentUser.getPrincipal()).getUserObject());
 		}
+		catch(Exception er){
+			
+			System.out.println("\n******login 出现异常*****************");
+			
+			er.printStackTrace();
+			
+		}
+		
+		//doSetSession(SysConstants.SESSION_SYS_USER, (SysUser) ((LoginResult) currentUser.getPrincipal()).getUserObject());
+		//if(sysUser.getRemainPass()){ 
+			//UfdmCookieUtil.addCookie(response, "loginName", sysUser.getLoginName(), 60*60*24*365);
+			//UfdmCookieUtil.addCookie(response, "loginPass", originPass, 60*60*24*365);
+		//}
 		respBean.setBody("登录成功");
 		return respBean;
 	}
@@ -194,7 +231,7 @@ public class SysUserAccountAction extends BaseAction
 	 */
 	@RequestMapping("doSysUserLogout")
 	public ModelAndView doSysUserLogout() throws Exception{ 
-		doRemoveSession(SysConstants.SESSION_SYS_USER);
+		//doRemoveSession(SysConstants.SESSION_SYS_USER);
 		return new ModelAndView("/sysuser/sysUserLogin");
 	}
 
