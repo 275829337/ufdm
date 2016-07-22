@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="276" started-at="2016-07-21T10:12:59Z" finished-at="2016-07-21T10:12:59Z">
+  <suite name="Default suite" duration-ms="295" started-at="2016-07-22T07:18:11Z" finished-at="2016-07-22T07:18:12Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="276" started-at="2016-07-21T10:12:59Z" finished-at="2016-07-21T10:12:59Z">
+    <test name="Default test" duration-ms="295" started-at="2016-07-22T07:18:11Z" finished-at="2016-07-22T07:18:12Z">
       <class name="tutorial.shiro.LoginLogoutTest">
-        <test-method status="PASS" signature="testHelloworld()[pri:0, instance:tutorial.shiro.LoginLogoutTest@4ffdd6db]" name="testHelloworld" duration-ms="258" started-at="2016-07-21T18:12:59Z" finished-at="2016-07-21T18:12:59Z">
+        <test-method status="PASS" signature="testHelloworld()[pri:0, instance:tutorial.shiro.LoginLogoutTest@34ef98ac]" name="testHelloworld" duration-ms="276" started-at="2016-07-22T15:18:11Z" finished-at="2016-07-22T15:18:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testHelloworld -->

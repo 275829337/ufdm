@@ -15,8 +15,12 @@ public class BitAndWildPermissionResolver implements PermissionResolver {
 	@Override  
     public Permission resolvePermission(String permissionString) {  
         if(permissionString.startsWith("+")) {
+        	
+        	System.out.println("\n 添加 BitPermission 权限");
             return new BitPermission(permissionString);
         }  
+        
+        System.out.println("\n 添加 WildcardPermission 权限");
         return new WildcardPermission(permissionString);
     }  
 

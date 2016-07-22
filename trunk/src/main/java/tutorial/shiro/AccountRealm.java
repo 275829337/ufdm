@@ -9,15 +9,15 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.realm.Realm;
 
 /** 
-* @Description: TODO
+* @Description: 账号验证
 * @date 2016年7月21日 
 * @author 1936
 */
-public class MyRealm1 implements Realm {
+public class AccountRealm implements Realm {
 
 	@Override
 	public String getName() {
-		return "myrealm1";  
+		return "accountRealm";  
 	}
 
 	@Override
@@ -30,14 +30,13 @@ public class MyRealm1 implements Realm {
 		String username = (String)token.getPrincipal();  //得到用户名  
         String password = new String((char[])token.getCredentials()); //得到密码  
         
-        System.out.println("\n username:"+username);
-        System.out.println("\n password:"+password);
+        //System.out.println("\n 登录账号规则验证  账号:"+username + ",密码:" + password);
         
-        if("zhang".equals(username) && "123".equals(password)) {  
+        if(username!=null && !username.equals("") && password!=null && password.length()>=6) {  
             return new SimpleAuthenticationInfo(username, password, getName()); 
         } 
         else{
-        	throw new AccountException(); 
+        	throw new AccountException("用户账号、密码不能为空，密码不能至少6位"); 
         }
 
 	}

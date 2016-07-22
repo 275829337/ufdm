@@ -18,6 +18,9 @@ public class BitPermission implements Permission {
     private String instanceId;  
     
     public BitPermission(String permissionString) {  
+    	
+    	System.out.println("\n permissionString:"+permissionString);
+    	
         String[] array = permissionString.split("\\+");  
         if(array.length > 1) {  
             resourceIdentify = array[1];  
@@ -34,6 +37,10 @@ public class BitPermission implements Permission {
         if(StringUtils.isEmpty(instanceId)) {  
             instanceId = "*";  
         }  
+        
+        System.out.println("\n resourceIdentify:"+resourceIdentify);
+        System.out.println("\n permissionBit:"+permissionBit);
+        System.out.println("\n instanceId:"+instanceId);
     }  
   
     // Permission 接口提供了boolean implies(Permission p) 方法用于判断权限匹配的；
